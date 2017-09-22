@@ -3,8 +3,12 @@ server:
     port: 9099
 
 info:
-  app:
-    encoding: @project.build.sourceEncoding@
-    source: @java.version@
-    target: @java.version@
+    app:
+        encoding: @project.build.sourceEncoding@
+        source: @java.version@
+        target: @java.version@
 
+management:
+    info:
+        git:
+            mode: full
