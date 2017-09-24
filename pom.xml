@@ -8,7 +8,6 @@
   <groupId>com.soebes.spring.boot</groupId>
   <artifactId>first-spring-boot</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
 
   <name>first</name>
   <description>Demo project for Spring Boot</description>
@@ -31,7 +30,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring.boot.version}</version>
@@ -45,13 +43,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!-- tag::actuator[] -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-    <!-- end::actuator[] -->
-    <!-- tag::tests[] -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
