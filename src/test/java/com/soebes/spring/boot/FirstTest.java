@@ -1,44 +1,42 @@
 package com.soebes.spring.boot;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * This integration test starts up the whole application
- * and tests the responses it get from the application.
+ * This integration test starts up the whole application and tests the responses it get from the application.
  * 
  * @author Karl Heinz Marbaise
- *
  */
-@SpringBootTest( webEnvironment = WebEnvironment.RANDOM_PORT )
-@DirtiesContext
+@RunWith( SpringRunner.class )
+@WebMvcTest( HelloController.class )
 public class FirstTest
-    extends AbstractTestNGSpringContextTests
 {
     @Autowired
-    private TestRestTemplate restTemplate;
+    private MockMvc mockMvc;
 
     @Test
-    public void testHome()
+    public void getRoot() throws Exception
     {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity( "/", String.class );
-        assertThat( entity.getStatusCode() ).isEqualTo( HttpStatus.OK );
-        assertThat( entity.getBody() ).isEqualTo( "Greetings from Spring Boot!" );
+        mockMvc.perform( get( "/" ) )
+            .andExpect( status().isOk() )
+            .andExpect( content().string( "Greetings from Spring Boot!" ) );
     }
+
     @Test
-    public void testGetLists()
+    public void getLists() throws Exception
     {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity( "/lists", String.class );
-        assertThat( entity.getStatusCode() ).isEqualTo( HttpStatus.OK );
-        assertThat( entity.getBody() ).isEqualTo( "Something different." );
+        mockMvc.perform( get( "/lists" ) )
+            .andExpect( status().isOk() )
+            .andExpect( content().string( "Something different." ) );
     }
 }
